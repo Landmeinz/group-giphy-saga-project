@@ -6,6 +6,7 @@ function SearchForm() {
 
     const dispatch = useDispatch();
 
+    // using local state to grab the text input from the DOM; 
     const [search, setSearch] = useState('')
 
     function handleSubmit(event) {

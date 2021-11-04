@@ -4,10 +4,11 @@ import App from './components/App/App';
 import axios from 'axios';
 
 import { createStore, combineReducers, applyMiddleware } from 'redux'
-import { Provider } from 'react';
+import { Provider } from 'react-redux';
 import logger from 'redux-logger';
 import createSageMiddleware from 'redux-saga';
 import { takeEvery, put } from 'redux-saga/effects';
+
 
 const setResults = (state = [], action) => {
     switch(action.type) {
@@ -20,15 +21,15 @@ const setResults = (state = [], action) => {
 
 // sends axios.get to call the GIPHY API
 function* fetchResults(action) {
-    try {
-        const response = yield axios({
-            method: 'GET', 
-            url: `/api/search/${action.payload}`
-        yield put({type: 'SET_RESULTS', payload: response.data});
-    } catch (err) {
-        console.log('Error on GET: ', err);
-        yield put({type: 'GET_ERROR'})
-    }
+    // try {
+    //     const response = yield axios({
+    //         method: 'GET', 
+    //         url: `/api/search/${action.payload}`
+    //     yield put({type: 'SET_RESULTS', payload: response.data});
+    // } catch (err) {
+    //     console.log('Error on GET: ', err);
+    //     yield put({type: 'GET_ERROR'})
+    // }
 }
 
 function* rootSaga() {
@@ -40,7 +41,7 @@ function* rootSaga() {
 const sagaMiddleware = createSageMiddleware();
 
 const storeInstance = createStore(
-    combineReducers({results}), 
+    combineReducers({setResults}), 
     applyMiddleware(sagaMiddleware, logger)
 );
 
