@@ -45,7 +45,7 @@ function* fetchResults(action) {
     try {
         const response = yield axios({
             method: 'GET', 
-            url: `/api/search/${action.payload}`})
+            url: `/api/search/${action.payload}`});
         yield put({type: 'SET_RESULTS', payload: response.data});
     } catch (err) {
         console.log('Error on GET: ', err);
