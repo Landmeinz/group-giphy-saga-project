@@ -2,16 +2,16 @@ import { useSelector } from 'react-redux';
 
 import ListItem from '../ListItem/ListItem.jsx'
 
-import dataList from './dataList.js'
+// import dataList from './dataList.js'
 
 function SearchList() {
 
     // this is the list from the store; 
-    // const gifList = useSelector(store => store.setResults);
+    const gifList = useSelector(store => store.setResults);
 
-    console.log(dataList);
+    // console.log(dataList);
 
-    const gifList = dataList
+    // const gifList = dataList
     return(
         <div>
             {gifList.map(gif => (
