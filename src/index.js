@@ -38,7 +38,7 @@ function* fetchFavorites() {
         const response = yield axios.get('api/favorite');
         yield put({type: 'SET_FAVORITES', payload: response.data})
     } catch (err) {
-        log('Erro on fetchFavorites: ', err)
+        log('Error on fetchFavorites: ', err)
         yield put({type: 'FETCH_FAVS_ERROR'})
     }
 }
