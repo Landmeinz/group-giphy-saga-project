@@ -23,17 +23,28 @@ const setResults = (state = [], action) => {
 const setFavorites = (state = [], action) => {
     switch(action.type) {
         case 'SET_FAVORITES':
-            return [...state, action.payload]
+            return action.payload
         default:
             return state;
     }
 }
 
+//GET all favorites from DB
+function* fetchFavorites() {
+    try{
+        const response = yield axios.get('api/favorite');
+        yield put('SET_FAVORITES', response.data)
+    } catch (err) {
+        log('Erro on fetchFavorites: ', err)
+        yield put({type: 'FETCH_FAVS_ERROR'})
+    }
+}
+
 //posts favorites array from reducer to DB
 //could also be set up like fetchResults
-function* postFavorites(action) {
+function* postFavorite(action) {
     try {
-       yield axios.post ('/api/favorite', setFavorites) 
+       yield axios.post ('/api/favorite', action.payload) 
     } catch (err) {
         console.log('Error on Post', err);
         yield put({type: 'POST_ERROR'})
@@ -57,8 +68,9 @@ function* rootSaga() {
     // search button dispatches a GET_RESULTS action caught here
     yield takeEvery('GET_RESULTS', fetchResults)
     yield takeEvery('SET_RESULTS', setResults)
-    yield takeEvery('SET_FAVORITES', postFavorites)
+    yield takeEvery('POST_FAVORITE', postFavorite)
     yield takeEvery('GET_FAVORITES', fetchFavorites)
+    yield takeEvery('SET_FAVORITES', setFavorites)
 }
 
 const sagaMiddleware = createSageMiddleware();
