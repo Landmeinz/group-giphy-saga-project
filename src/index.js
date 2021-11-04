@@ -11,6 +11,9 @@ import { takeEvery, put } from 'redux-saga/effects';
 
 // search results reducer
 const setResults = (state = [], action) => {
+
+    console.log('this is the action in setResults', action);
+    
     switch(action.type) {
         case 'SET_RESULTS':
             return action.payload
@@ -33,7 +36,7 @@ const setFavorites = (state = [], action) => {
 function* fetchFavorites() {
     try{
         const response = yield axios.get('api/favorite');
-        yield put('SET_FAVORITES', response.data)
+        yield put({type: 'SET_FAVORITES', payload: response.data})
     } catch (err) {
         log('Erro on fetchFavorites: ', err)
         yield put({type: 'FETCH_FAVS_ERROR'})
@@ -53,6 +56,8 @@ function* postFavorite(action) {
 
 // sends axios.get to call the GIPHY API
 function* fetchResults(action) {
+    console.log('this is the action in fetchResults', action);
+    
     try {
         const response = yield axios({
             method: 'GET', 
@@ -67,16 +72,14 @@ function* fetchResults(action) {
 function* rootSaga() {
     // search button dispatches a GET_RESULTS action caught here
     yield takeEvery('GET_RESULTS', fetchResults)
-    yield takeEvery('SET_RESULTS', setResults)
     yield takeEvery('POST_FAVORITE', postFavorite)
     yield takeEvery('GET_FAVORITES', fetchFavorites)
-    yield takeEvery('SET_FAVORITES', setFavorites)
 }
 
 const sagaMiddleware = createSageMiddleware();
 
 const storeInstance = createStore(
-    combineReducers({results}), 
+    combineReducers({setResults, setFavorites}), 
     applyMiddleware(sagaMiddleware, logger)
 );
 
