@@ -18,4 +18,35 @@ const results = (state = [], action) => {
     }
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+
+// sends axios.get to call the GIPHY API
+function* fetchResults(action) {
+    try {
+        const response = yield axios({
+            method: 'GET', 
+            url: `/api/search/${action.payload}`
+        yield put({type: 'SET_RESULTS', payload: response.data});
+    } catch (err) {
+        console.log('Error on GET: ', err);
+        yield put({type: 'GET_ERROR'})
+    }
+}
+
+function* rootSaga() {
+    // search button dispatches a GET_RESULTS action caught here
+    yield takeEvery('GET_RESULTS', fetchResults)
+    yield takeEvery('SET_RESULTS', setResults)
+}
+
+const sagaMiddleware = createSageMiddleware();
+
+const storeInstance = createStore(
+    combineReducers({results}), 
+    applyMiddleware(sagaMiddleware, logger)
+);
+
+sagaMiddleware.run(rootSaga);
+
+ReactDOM.render(<Provider store={storeInstance}><App /></Provider>, document.getElementById('root'));
+
+
