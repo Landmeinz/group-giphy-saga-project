@@ -9,7 +9,7 @@ import logger from 'redux-logger';
 import createSageMiddleware from 'redux-saga';
 import { takeEvery, put } from 'redux-saga/effects';
 
-const results = (state = [], action) => {
+const setResults = (state = [], action) => {
     switch(action.type) {
         case 'SET_RESULTS':
             return action.payload
@@ -17,7 +17,6 @@ const results = (state = [], action) => {
             return state;
     }
 }
-
 
 // sends axios.get to call the GIPHY API
 function* fetchResults(action) {
