@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
+import FavCard from '../FavCard/FavCard.jsx';
 
 import ListItem from '../ListItem/ListItem.jsx';
 
@@ -21,9 +22,13 @@ function SearchList(props) {
   // const gifList = dataList
   return (
     <div>
-      {gifList.map((gif) => (
-        <ListItem key={gif.id} gif={gif} />
-      ))}
+      {gifList.map((gif) => {
+        return props.parent === 'favorites' ? (
+          <FavCard gif={gif} />
+        ) : (
+          <ListItem gif={gif} />
+        );
+      })}
     </div>
   );
 }
