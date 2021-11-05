@@ -33,8 +33,8 @@ function ListItem({ gif }) {
         variant="outlined"
         sx={{
             boxShadow:  2,
-            maxWidth:   350,
-            minWidth:   300,
+            maxWidth:   400,
+            minWidth:   250,
             maxHeight:  200,
             minHeight:  200, 
         }}
