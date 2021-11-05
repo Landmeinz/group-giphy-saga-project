@@ -20,25 +20,24 @@ function ListItem({ gif }) {
         break;
       // set this as a favorite
       case 'fav':
-        dispatch({ type: 'SET_FAVORITE', payload: gif });
+        dispatch({ type: 'ADD_FAVORITE', payload: gif });
         break;
     }
   };
 
   return (
     <div>
-      {(gif.isFavorite) ?
-        (
-          <div>
-            <img src={gif.url} alt={gif.title} />
-            <button onClick={() => handleClick('remove')}>REMOVE</button>
-          </div>
-        ) : (
-          <div>
-            <img src={gif.url} alt={gif.title} />
-            <button onClick={() => handleClick('fav')}>FAV</button>
-          </div>
-        )}
+      {gif.isFavorite ? (
+        <div>
+          <img src={gif.url} alt={gif.title} />
+          <button onClick={() => handleClick('remove')}>REMOVE</button>
+        </div>
+      ) : (
+        <div>
+          <img src={gif.url} alt={gif.title} />
+          <button onClick={() => handleClick('fav')}>FAV</button>
+        </div>
+      )}
     </div>
   );
 }
