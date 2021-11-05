@@ -7,10 +7,10 @@ function App(props) {
   return (
     <div>
       <Router>
-        <Route exact path='/'>
+        <Route exact path="/">
           <Search />
         </Route>
-        <Route exact path='/favorites'>
+        <Route exact path="/favorites">
           <Favorites />
         </Route>
       </Router>
