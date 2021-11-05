@@ -100,6 +100,7 @@ function* rootSaga() {
   yield takeEvery('GET_RESULTS', fetchResults);
   yield takeEvery('ADD_FAVORITE', postFavorite);
   yield takeEvery('GET_FAVORITES', fetchFavorites);
+  yield takeEvery('SET_FAVORITE', setFavorites);
   yield takeEvery('GET_CATEGORIES', fetchCategories);
 }
 
