@@ -20,7 +20,7 @@ function Favorites() {
   return (
     <div>
       <h1>Favorites</h1>
-      {favoriteList && <SearchList list={favoriteList} parent={'favorites'} />}
+      <SearchList list={favoriteList} parent={'favorites'} />
     </div>
   );
 }

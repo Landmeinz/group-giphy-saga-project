@@ -26,10 +26,11 @@ function SearchList(props) {
   return (
     <div>
       {gifList.map((gif) => {
+        console.log(`in gifList map, gif is`, gif);
         return props.parent === 'favorites' ? (
-          <FavCard gif={gif} />
+          <FavCard key={gif.id} gif={gif} />
         ) : (
-          <ListItem gif={gif} />
+          <ListItem key={gif.id} gif={gif} />
         );
       })}
     </div>

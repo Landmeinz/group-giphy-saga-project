@@ -5,6 +5,7 @@ function FavCard({ gif }) {
   // fetch the categories from the redux store
   const categoriesList = useSelector((store) => store.setCategories);
 
+  console.log(`this is gif in FavCard`, gif);
   return (
     <>
       <ListItem gif={gif} />

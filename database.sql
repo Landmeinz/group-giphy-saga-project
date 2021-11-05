@@ -17,7 +17,7 @@ CREATE TABLE "favorites" (
     "id" SERIAL PRIMARY KEY,
     "title" VARCHAR(100),
     "url" VARCHAR(256),
-    "giphy_id" INT,
+    "giphy_id" VARCHAR(150),
     "category_id" INT REFERENCES "category"
 );
 
