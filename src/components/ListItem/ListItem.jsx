@@ -1,5 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
 
+// import MUI components;
+import Card from '@mui/material/Card';
+
 function ListItem({ gif }) {
   // this is the favorite list that we need to get from the store;
   const favoriteList = useSelector((store) => store.setFavorites);
@@ -26,14 +29,23 @@ function ListItem({ gif }) {
   };
 
   return (
-    <div>
+    <Card 
+        variant="outlined"
+        sx={{
+            boxShadow:  2,
+            maxWidth:   350,
+            minWidth:   300,
+            maxHeight:  200,
+            minHeight:  200, 
+        }}
+    >
       <img src={gif.images.fixed_height.url} alt={gif.title} />
       {favoriteListIds.includes(gif.id) ? (
         <button onClick={() => handleClick('remove')}>REMOVE</button>
       ) : (
         <button onClick={() => handleClick('fav')}>FAV</button>
       )}
-    </div>
+    </Card>
   );
 }
 

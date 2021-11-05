@@ -1,12 +1,19 @@
 import React from 'react';
 import Favorites from '../Favorites/Favorites.jsx';
 import Search from '../Search/Search.jsx';
+import Navbar from '../Navbar/Navbar.jsx';
 import { HashRouter as Router, Route } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+
 
 function App(props) {
+  const history = useHistory();
+  
+  
   return (
-    <div>
+    <>
       <Router>
+        <Navbar />
         <Route exact path='/'>
           <Search />
         </Route>
@@ -14,7 +21,7 @@ function App(props) {
           <Favorites />
         </Route>
       </Router>
-    </div>
+    </>
   );
 }
 
