@@ -1,15 +1,22 @@
 import ListItem from '../ListItem/ListItem';
+import { useSelector } from 'react-redux';
 
 function FavCard({ gif }) {
+  // fetch the categories from the redux store
+  const categoriesList = useSelector((store) => store.setCategories);
+
   return (
     <>
       <ListItem gif={gif} />
       <label for="categories">Choose a category:</label>
       <select id="categoriesDropdown" name="categories">
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-        <option value="fiat">Fiat</option>
-        <option value="audi">Audi</option>
+        {categoriesList.map((category) => {
+          return (
+            <option key={category.id} value={category.name}>
+              {category.name}
+            </option>
+          );
+        })}
       </select>
     </>
   );
