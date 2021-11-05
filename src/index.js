@@ -24,8 +24,8 @@ const setResults = (state = [], action) => {
 //set favorites reducer
 const setFavorites = (state = [], action) => {
   switch (action.type) {
-    case 'SET_FAVORITE':
-      return [...state, action.payload];
+    case 'SET_FAVORITES':
+      return action.payload;
     default:
       return state;
   }
@@ -100,7 +100,6 @@ function* rootSaga() {
   yield takeEvery('GET_RESULTS', fetchResults);
   yield takeEvery('ADD_FAVORITE', postFavorite);
   yield takeEvery('GET_FAVORITES', fetchFavorites);
-  yield takeEvery('SET_FAVORITE', setFavorites);
   yield takeEvery('GET_CATEGORIES', fetchCategories);
 }
 
