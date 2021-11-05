@@ -20,7 +20,7 @@ function ListItem({ gif }) {
         break;
       // set this as a favorite
       case 'fav':
-        dispatch({ type: 'ADD_FAVORITE', payload: gif });
+        dispatch({ type: 'SET_FAVORITE', payload: gif });
         break;
     }
   };

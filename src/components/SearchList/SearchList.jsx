@@ -4,10 +4,11 @@ import ListItem from '../ListItem/ListItem.jsx'
 
 // import dataList from './dataList.js'
 
-function SearchList() {
+function SearchList(props) {
 
     // this is the list from the store; 
-    const gifList = useSelector(store => store.setResults);
+    const gifList = props.list;
+    console.log('gifList is: ', gifList);
 
     // console.log(dataList);
 

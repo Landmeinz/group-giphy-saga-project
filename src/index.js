@@ -25,8 +25,8 @@ const setResults = (state = [], action) => {
 //set favorites reducer
 const setFavorites = (state = [], action) => {
     switch(action.type) {
-        case 'SET_FAVORITES':
-            return action.payload
+        case 'SET_FAVORITE':
+            return [...state, action.payload]
         default:
             return state;
     }
@@ -38,7 +38,7 @@ function* fetchFavorites() {
         const response = yield axios.get('api/favorite');
         yield put({type: 'SET_FAVORITES', payload: response.data})
     } catch (err) {
-        log('Erro on fetchFavorites: ', err)
+        log('Error on fetchFavorites: ', err)
         yield put({type: 'FETCH_FAVS_ERROR'})
     }
 }
@@ -72,7 +72,7 @@ function* fetchResults(action) {
 function* rootSaga() {
     // search button dispatches a GET_RESULTS action caught here
     yield takeEvery('GET_RESULTS', fetchResults)
-    yield takeEvery('POST_FAVORITE', postFavorite)
+    yield takeEvery('ADD_FAVORITE', postFavorite)
     yield takeEvery('GET_FAVORITES', fetchFavorites)
 }
 
