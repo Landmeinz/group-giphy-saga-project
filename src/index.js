@@ -52,6 +52,15 @@ function* fetchFavorites() {
   }
 }
 
+function* selectCategory(action) {
+    try{
+        yield axios.put(`/api/favorite/${action.payload.id}`, action.payload)
+    } catch (err) {
+        console.log('Error on PUT');
+        
+    }
+}
+
 //posts favorites array from reducer to DB
 //could also be set up like fetchResults
 function* postFavorite(action) {
@@ -101,6 +110,7 @@ function* rootSaga() {
   yield takeEvery('ADD_FAVORITE', postFavorite);
   yield takeEvery('GET_FAVORITES', fetchFavorites);
   yield takeEvery('GET_CATEGORIES', fetchCategories);
+  yield takeEvery('SELECT_CATEGORY', selectCategory)
 }
 
 const sagaMiddleware = createSageMiddleware();
