@@ -1,27 +1,22 @@
 import React from 'react';
+import Favorites from '../Favorites/Favorites.jsx';
 import Search from '../Search/Search.jsx';
 import Navbar from '../Navbar/Navbar.jsx';
-import { Route, HashRouter as Router, Link} from 'react-router-dom';
+import { HashRouter as Router, Route } from 'react-router-dom';
+
 
 function App(props) {
   return (
     <>
       <Navbar />
-    
       <Router>
-        <Route path="/" exact>
+        <Route exact path='/'>
           <Search />
         </Route>
-        <Route path="/favorites">
-          <
+        <Route exact path='/favorites'>
+          <Favorites />
         </Route>
-
-
       </Router>
-    
-    <div>
-      
-    </div>
     </>
   );
 }
