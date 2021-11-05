@@ -4,16 +4,17 @@ import SearchList from '../SearchList/SearchList';
 
 function Favorites() {
 
-    const favorites = useSelector(store=>store.setFavorites)
-
     const dispatch = useDispatch();
 
-    dispatch({type: 'ADD_FAVORITE', payload: favorites});
+    dispatch({type: 'GET_FAVORITES', payload: favorites});
+    const favoriteList = useSelector((store) => store.storeFavorites);
+
+    const favorites = useSelector(store=>store.storeFavorites)
 
     return(
         <div>
             <h1>Favorites</h1>
-            <SearchList list={favorites} />
+            <SearchList list={favoriteList} />
         </div>
         
     )
