@@ -22,13 +22,22 @@ const setResults = (state = [], action) => {
     }
 }
 
-//set favorites reducer
-const setFavorites = (state = [], action) => {
+const storeFavorites = (state = [], action) => {
     switch(action.type) {
-        case 'SET_FAVORITE':
-            return [...state, action.payload]
+        case ('STORE_FAVORITES'):
+            return action.payload
         default:
-            return state;
+            return state
+    }
+}
+
+//set favorites reducer
+function* setFavorites(action) {
+    try{
+        yield axios.post('/api/favorite', action.payload)
+    } catch (err) {
+        console.log('Error on POST favorites: ', err);
+        yield put({type: 'POST_ERROR'})
     }
 }
 
@@ -36,7 +45,7 @@ const setFavorites = (state = [], action) => {
 function* fetchFavorites() {
     try{
         const response = yield axios.get('api/favorite');
-        yield put({type: 'SET_FAVORITES', payload: response.data})
+        yield put({type: 'STORE_FAVORITES', payload: response.data})
     } catch (err) {
         log('Error on fetchFavorites: ', err)
         yield put({type: 'FETCH_FAVS_ERROR'})
@@ -74,12 +83,13 @@ function* rootSaga() {
     yield takeEvery('GET_RESULTS', fetchResults)
     yield takeEvery('ADD_FAVORITE', postFavorite)
     yield takeEvery('GET_FAVORITES', fetchFavorites)
+    yield takeEvery('SET_FAVORITE', setFavorites)
 }
 
 const sagaMiddleware = createSageMiddleware();
 
 const storeInstance = createStore(
-    combineReducers({setResults, setFavorites}), 
+    combineReducers({setResults, storeFavorites}), 
     applyMiddleware(sagaMiddleware, logger)
 );
 
