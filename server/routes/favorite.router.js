@@ -26,7 +26,8 @@ router.post('/', (req, res) => {
     INSERT INTO favorites (title, url, giphy_id)
     values($1, $2, $3)
   `
-  const values = [fav.title, fav.images.fixed_height.url, fav.id]
+  // const url = req.body.images.fixed_height.url;
+  const values = [fav.title, fav.url, fav.id]
   pool.query(queryText, values)
       .then(response => {
         res.sendStatus(200)

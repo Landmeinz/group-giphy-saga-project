@@ -4,16 +4,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import Card from '@mui/material/Card';
 
 function ListItem({ gif }) {
+  console.log('this is gif in ListItem: ', gif);
   // this is the favorite list that we need to get from the store;
-  const favoriteList = useSelector((store) => store.setFavorites);
-
-  const dispatch = useDispatch();
 
   // JUST TO TEST
   // const favoriteList = [{ giphy_id: '3o6gDRiDhpXBxUDtaU' }];
 
   // get an array of ids from the favoriteList
-  const favoriteListIds = favoriteList.map((favorite) => favorite.giphy_id);
+  // const favoriteListIds = favoriteList.map((favorite) => favorite.giphy_id);
+
+  const dispatch = useDispatch();
 
   const handleClick = (type) => {
     switch (type) {
@@ -39,12 +39,18 @@ function ListItem({ gif }) {
             minHeight:  200, 
         }}
     >
-      <img src={gif.images.fixed_height.url} alt={gif.title} />
-      {favoriteListIds.includes(gif.id) ? (
-        <button onClick={() => handleClick('remove')}>REMOVE</button>
-      ) : (
-        <button onClick={() => handleClick('fav')}>FAV</button>
-      )}
+      {(gif.isFavorite) ?
+        (
+          <div>
+            <img src={gif.url} alt={gif.title} />
+            <button onClick={() => handleClick('remove')}>REMOVE</button>
+          </div>
+        ) : (
+          <div>
+            <img src={gif.url} alt={gif.title} />
+            <button onClick={() => handleClick('fav')}>FAV</button>
+          </div>
+        )}
     </Card>
   );
 }

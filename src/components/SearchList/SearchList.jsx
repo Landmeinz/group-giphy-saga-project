@@ -1,5 +1,8 @@
-import { useSelector } from 'react-redux';
-import ListItem from '../ListItem/ListItem.jsx'
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import FavCard from '../FavCard/FavCard.jsx';
+
+import ListItem from '../ListItem/ListItem.jsx';
 
 // import MUI components;
 import Card from '@mui/material/Card';
@@ -7,24 +10,30 @@ import Card from '@mui/material/Card';
 // import dataList from './dataList.js'
 
 function SearchList(props) {
+  const dispatch = useDispatch();
 
-    // this is the list from the store; 
-    const gifList = props.list;
-    console.log('gifList is: ', gifList);
+  useEffect(() => {
+    dispatch({ type: 'GET_CATEGORIES' });
+  }, []);
 
-    // console.log(dataList);
+  // this is the list from the store;
+  const gifList = props.list;
+  console.log('gifList is: ', gifList);
 
-    // const gifList = dataList
-    return(
-        <div>
-            {gifList.map(gif => (
-                <ListItem 
-                    key={gif.id}
-                    gif={gif}
-                />
-            ))}
-        </div>
-    )
-};
+  // console.log(dataList);
 
-export default SearchList; 
+  // const gifList = dataList
+  return (
+    <div>
+      {gifList.map((gif) => {
+        return props.parent === 'favorites' ? (
+          <FavCard gif={gif} />
+        ) : (
+          <ListItem gif={gif} />
+        );
+      })}
+    </div>
+  );
+}
+
+export default SearchList;
