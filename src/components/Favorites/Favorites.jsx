@@ -3,28 +3,26 @@ import { useSelector, useDispatch } from 'react-redux';
 import SearchList from '../SearchList/SearchList';
 
 function Favorites() {
+  useEffect(() => {
+    console.log(`in useEffect`);
+    getFavorites();
+  }, []);
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    function getFavorites() {
-        dispatch({type: 'GET_FAVORITES'});
-    }
+  function getFavorites() {
+    console.log(`in getFavorites`);
+    dispatch({ type: 'GET_FAVORITES' });
+  }
 
-    const favoriteList = useSelector((store) => store.storeFavorites);
+  const favoriteList = useSelector((store) => store.setFavorites);
 
-    // const favorites = useSelector(store=>store.storeFavorites)
-
-    useEffect(() => {
-        getFavorites()
-    }, [])
-
-    return(
-        <div>
-            <h1>Favorites</h1>
-            <SearchList list={favoriteList} />
-        </div>
-        
-    )
+  return (
+    <div>
+      <h1>Favorites</h1>
+      {favoriteList && <SearchList list={favoriteList} parent={'favorites'} />}
+    </div>
+  );
 }
 
 export default Favorites;
