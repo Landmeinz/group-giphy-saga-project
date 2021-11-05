@@ -1,28 +1,31 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
 
-import ListItem from '../ListItem/ListItem.jsx'
+import ListItem from '../ListItem/ListItem.jsx';
 
 // import dataList from './dataList.js'
 
 function SearchList(props) {
+  const dispatch = useDispatch();
 
-    // this is the list from the store; 
-    const gifList = props.list;
-    console.log('gifList is: ', gifList);
+  useEffect(() => {
+    dispatch({ type: 'GET_CATEGORIES' });
+  }, []);
 
-    // console.log(dataList);
+  // this is the list from the store;
+  const gifList = props.list;
+  console.log('gifList is: ', gifList);
 
-    // const gifList = dataList
-    return(
-        <div>
-            {gifList.map(gif => (
-                <ListItem 
-                    key={gif.id}
-                    gif={gif}
-                />
-            ))}
-        </div>
-    )
-};
+  // console.log(dataList);
 
-export default SearchList; 
+  // const gifList = dataList
+  return (
+    <div>
+      {gifList.map((gif) => (
+        <ListItem key={gif.id} gif={gif} />
+      ))}
+    </div>
+  );
+}
+
+export default SearchList;

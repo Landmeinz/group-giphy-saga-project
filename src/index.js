@@ -79,17 +79,34 @@ function* fetchResults(action) {
   }
 }
 
+// sends axios.got to retrieve the categories from the db
+function* fetchCategories(action) {
+  console.log('this is the action in fetchCategories', action);
+
+  try {
+    const response = yield axios({
+      method: 'GET',
+      url: '/api/category',
+    });
+    yield put({ type: 'SET_CATEGORIES', payload: response.data });
+  } catch (err) {
+    console.log('Error on GET: (categories) ', err);
+    yield put({ type: 'GET_ERROR' });
+  }
+}
+
 function* rootSaga() {
   // search button dispatches a GET_RESULTS action caught here
   yield takeEvery('GET_RESULTS', fetchResults);
   yield takeEvery('ADD_FAVORITE', postFavorite);
   yield takeEvery('GET_FAVORITES', fetchFavorites);
+  yield takeEvery('GET_CATEGORIES', fetchCategories);
 }
 
 const sagaMiddleware = createSageMiddleware();
 
 const storeInstance = createStore(
-  combineReducers({ setResults, setFavorites }),
+  combineReducers({ setResults, setFavorites, setCategories }),
   applyMiddleware(sagaMiddleware, logger)
 );
 
