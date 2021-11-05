@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import SearchList from '../SearchList/SearchList';
 
@@ -6,10 +6,17 @@ function Favorites() {
 
     const dispatch = useDispatch();
 
-    dispatch({type: 'GET_FAVORITES', payload: favorites});
+    function getFavorites() {
+        dispatch({type: 'GET_FAVORITES', payload: favorites});
+    }
+
     const favoriteList = useSelector((store) => store.storeFavorites);
 
     const favorites = useSelector(store=>store.storeFavorites)
+
+    useEffect(() => {
+        getFavorites()
+    }, [])
 
     return(
         <div>
