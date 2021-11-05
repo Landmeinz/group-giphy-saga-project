@@ -41,11 +41,11 @@ router.post('/', (req, res) => {
 router.put('/:favId', (req, res) => {
   // req.body should contain a category_id to add to this favorite image
   const idToUpdate = req.params.favId
-  const categoryToUpdate = req.body
+  const categoryToUpdate = req.body.category
   const queryText = `
     UPDATE favorites 
     SET "category_id"=$1
-    WHERE "giphy_id"=$2;
+    WHERE "id"=$2;
   `
   const  values = [categoryToUpdate, idToUpdate]
   pool.query(queryText, values)
