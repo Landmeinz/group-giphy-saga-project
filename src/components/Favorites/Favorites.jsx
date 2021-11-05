@@ -7,12 +7,12 @@ function Favorites() {
     const dispatch = useDispatch();
 
     function getFavorites() {
-        dispatch({type: 'GET_FAVORITES', payload: favorites});
+        dispatch({type: 'GET_FAVORITES'});
     }
 
     const favoriteList = useSelector((store) => store.storeFavorites);
 
-    const favorites = useSelector(store=>store.storeFavorites)
+    // const favorites = useSelector(store=>store.storeFavorites)
 
     useEffect(() => {
         getFavorites()
